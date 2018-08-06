@@ -495,7 +495,6 @@ default['stig']['logging']['rsyslog_rules_rhel'] = [
   'authpriv.*   /var/log/secure',
   'mail.*   -/var/log/maillog',
   'cron.*   /var/log/cron',
-  '*.emerg   *',
   'uucp,news.crit   /var/log/spooler',
   'local7.*    /var/log/boot.log',
   '$FileCreateMode 0640',
