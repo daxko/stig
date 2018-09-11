@@ -362,7 +362,7 @@ default['stig']['auditd']['rules'] = [
   '-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts',
   '-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts',
   '-w /etc/sudoers -p wa -k scope',
-  '-w /etc/sudoers.d/ -p wa -k scope',
+  '-w /etc/sudoers.d -p wa -k scope',
   '-w /etc/sudoers -p wa -k actions',
   '-w /var/log/faillog -p wa -k logins',
   '-w /var/run/faillock/ -p wa -k logins',
@@ -380,7 +380,7 @@ default['stig']['auditd']['rules'] = [
   '-w /sbin/insmod -p x -k modules',
   '-w /sbin/rmmod -p x -k modules',
   '-w /sbin/modprobe -p x -k modules',
-  '-a always,exit -F arch=b64 -S init_module -S delete_module -k modules'
+  '-a always,exit arch=b64 -S init_module -S delete_module -k modules'
 ]
 
 # Removing support for unneeded filesystem types
