@@ -569,7 +569,7 @@ default['logrotate']['global']['/var/log/spooler'] = {
   /bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true
   LOGROTATE
 }
-default['logrotate']['global']['/var/log/spooler'] = {
+default['logrotate']['global']['/var/log/boot.log'] = {
   'sharedscripts' => 'true',
   'postrotate' => <<-LOGROTATE
   /bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true
