@@ -14,3 +14,7 @@ template '/etc/audit/audit.rules' do
             rules: node['stig']['auditd']['rules'])
   notifies :reload, 'service[auditd]', :immediately
 end
+
+service 'auditd' do
+  action :nothing
+end
