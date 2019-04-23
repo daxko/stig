@@ -23,3 +23,25 @@ end
 service 'auditd' do
   action :nothing
 end
+
+bash 'stop auditd' do
+  code 'service auditd stop'
+end
+
+cookbook_file '/etc/audisp/audispd.conf' do
+  source 'audispd.conf'
+  owner 'root'
+  group 'root'
+  mode 0600
+  notifies :run, 'bash[stop auditd]', :before
+  notifies :start, 'service[auditd]', :delayed
+end
+
+cookbook_file '/etc/audisp/plugins.d/af_unix.conf' do
+  source 'af_unix.conf'
+  owner 'root'
+  group 'root'
+  mode 0600
+  notifies :run, 'bash[stop auditd]', :before
+  notifies :start, 'service[auditd]', :delayed
+end

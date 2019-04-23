@@ -328,6 +328,7 @@ default['stig']['auditd']['distribute_network'] = 'no'
 default['stig']['auditd']['buffer'] = '8192'
 default['stig']['auditd']['failure_mode'] = '1'
 default['stig']['auditd']['rules'] = [
+  '-a always,exit -F arch=b64 -S execve -F key=execve', #required for auditd compatibility mode with ir_agent
   '-a always,exit -F arch=b32 -S adjtimex -S settimeofday -S stime -k time-change',
   '-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change',
   '-a always,exit -F arch=b32 -S clock_settime -k time-change',
