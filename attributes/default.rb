@@ -556,7 +556,7 @@ default['logrotate']['global']['/var/log/maillog'] = {
 default['logrotate']['global']['/var/log/messages'] = {
   'sharedscripts' => 'true',
   'postrotate' => <<-LOGROTATE
-  /bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true
+  /bin/kill -9 `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true
   LOGROTATE
 }
 default['logrotate']['global']['/var/log/secure'] = {

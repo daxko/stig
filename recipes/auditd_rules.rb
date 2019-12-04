@@ -12,9 +12,9 @@ template '/etc/audit/audit.rules' do
   variables(buffer: node['stig']['auditd']['buffer'],
             failure_mode: node['stig']['auditd']['failure_mode'],
             rules: node['stig']['auditd']['rules'])
-  notifies :reload, 'service[auditd]', :immediately
+  notifies :restart, 'systemd_unit[auditd_service]', :immediately
 end
 
-service 'auditd' do
+systemd_unit 'auditd_service' do
   action :nothing
 end

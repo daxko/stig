@@ -17,15 +17,11 @@ template File.join(auditd_config_dir, 'auditd.conf') do
   owner 'root'
   group 'root'
   mode 0o640
-  notifies :restart, 'service[auditd]', :immediately
+  notifies :restart, 'systemd_unit[auditd_service]', :immediately
 end
 
-service 'auditd' do
+systemd_unit 'auditd_service' do
   action :nothing
-end
-
-bash 'stop auditd' do
-  code 'service auditd stop'
 end
 
 cookbook_file '/etc/audisp/audispd.conf' do
@@ -33,8 +29,8 @@ cookbook_file '/etc/audisp/audispd.conf' do
   owner 'root'
   group 'root'
   mode 0600
-  notifies :run, 'bash[stop auditd]', :before
-  notifies :start, 'service[auditd]', :delayed
+  notifies :stop, 'systemd_unit[auditd_service]', :before
+  notifies :start, 'systemd_unit[auditd_service]', :delayed
 end
 
 cookbook_file '/etc/audisp/plugins.d/af_unix.conf' do
@@ -42,6 +38,5 @@ cookbook_file '/etc/audisp/plugins.d/af_unix.conf' do
   owner 'root'
   group 'root'
   mode 0600
-  notifies :run, 'bash[stop auditd]', :before
-  notifies :start, 'service[auditd]', :delayed
+  notifies :restart, 'systemd_unit[auditd_service]', :delayed
 end
