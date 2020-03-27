@@ -19,8 +19,8 @@
 
 bash 'remove_world_writable_flag_from_files' do
   user 'root'
-  code "for fn in $(df --local -P | awk {'if (NR!=1) print $6'} | uniq | xargs -I '{}' find '{}' -xdev -type f -perm -0002);do chmod o-w $fn;done"
-  only_if "test -n \"$(df --local -P | awk {'if (NR!=1) print $6'} | uniq | xargs -I '{}' find '{}' -xdev -type f -perm -0002)\"", user: 'root'
+  code "IFS=$'\n'; for fn in $(df --local -P | awk {'if (NR!=1) print $6'} | uniq | xargs -I '{}' find '{}' -xdev -type f -perm -0002);do chmod o-w \"$fn\";done"
+  only_if "IFS=$'\n'; test -n \"$(df --local -P | awk {'if (NR!=1) print $6'} | uniq | xargs -I '{}' find '{}' -xdev -type f -perm -0002)\"", user: 'root'
 end
 
 bash 'find user and group orphaned files and directories' do
